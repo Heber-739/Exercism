@@ -8,21 +8,19 @@ sigue las reglas normales con respecto a la puntuación de las oraciones en ingl
  */
 
 export function hey(mess: string): string {
+  let options: { [key: number]: string } = {
+    1: "Sure.",
+    3: "Calm down, I know what I'm doing!",
+    2: "Whoa, chill out!",
+    0: "Whatever.",
+  };
   let message: string = mess.trim();
   if (message.match(/\S/)) {
-    if (message.match(/[a-z0-9]+[?]$/) || message.match(/[OK][?]$/)) {
-      return "Sure.";
-    }
-    if (message.match(/[^a-z]+[a-zA-Z]+[?]$/g)) {
-      return "Calm down, I know what I'm doing!";
-    }
-    if (message.match(/[a-zA-Z]/g)) {
-      if (message.match(/[A-Z]+[!]/g) || message == message.toUpperCase()) {
-        return "Whoa, chill out!";
-      }
-    }
-    return "Whatever.";
+    const question: number = mess[mess.length - 1] == "?" ? 1 : 0;
+    const yell: number =
+      /[A-Z]/.test(mess) && mess == mess.toUpperCase() ? 2 : 0;
+    return options[question + yell];
   }
   return "Fine. Be that way!";
 }
-hey("ajshdkhlsks?");
+console.log(hey("SDFSDFSDF?"));
