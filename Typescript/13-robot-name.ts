@@ -6,34 +6,37 @@ Los nombres deben ser aleatorios: no deben seguir una secuencia predecible. El u
 riesgo de colisiones. Su solución debe garantizar que cada robot existente tenga un nombre único.
  */
 export class Robot {
-  private static serial: number = 0;
-  private nameRobot: string;
+  private static serial: string = "AA999";
+  private nameRobot: string = "AA999";
 
   constructor() {
-    this.nameRobot = this.resetName();
+    this.resetName();
   }
 
   public get name(): string {
     return this.nameRobot;
   }
 
-  public resetName(): string {
-    Robot.releaseNames();
-    let alphabet: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0";
-    let aleatorio: any = () => {
-      return alphabet[Math.round(Math.random() * 25 + 1)];
-    };
-    if (Robot.serial < 100) {
-      if (Robot.serial < 10) {
-        return `${aleatorio()}${aleatorio()}00${Robot.serial}`;
-      }
-      return `${aleatorio()}${aleatorio()}0${Robot.serial}`;
-    }
-    return `${aleatorio()}${aleatorio()}${Robot.serial}`;
+  public resetName(): void {
+    this.nameRobot = Robot.releaseNames();
   }
 
-  public static releaseNames(): void {
-    Robot.serial = Robot.serial + Math.round(Math.random() * 7 + 1);
+  public static releaseNames(): string {
+    let alphabet: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let aleatorio: string = alphabet[Math.round(Math.random() * 25)];
+
+    let firstLetter: string = Robot.serial[0];
+    let numbers: number = parseInt(Robot.serial.substring(2));
+    numbers--;
+    if (numbers < 100) {
+      numbers = 999;
+      let index: number = alphabet.indexOf(firstLetter);
+      firstLetter = alphabet[index + 1];
+      this.serial = firstLetter + `${aleatorio}${numbers}`;
+    } else {
+      this.serial = firstLetter + `${aleatorio}${numbers}`;
+    }
+    return this.serial;
   }
 }
 let robot = new Robot();

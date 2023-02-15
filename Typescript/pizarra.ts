@@ -1,37 +1,39 @@
-export class Matrix {
-  private rowsArray: number[];
-  private columnsArray: number[];
+export class GradeSchool {
+  private list: Array<Array<string | number>> = [];
 
-  constructor(numbers: string) {
-    let rowsAux: any = [];
-    let columnsAux: any = [];
+  public roster() {
+    return this.grade(0);
+  }
 
-    let sep = numbers.split("\n");
-    sep.forEach((e) => {
-      let eN = e.split(" ");
-      rowsAux.push(eN.map((x) => parseInt(x)));
-    });
-    this.rowsArray = rowsAux;
-    let colNumber = rowsAux[0].length;
+  public add(name: string, grade: number) {
+    this.list = this.list.filter((e) => e[0] != name);
+    this.list.push([name, grade]);
+  }
 
-    let index = 0;
-    while (index < colNumber) {
-      let auxW: number[] = [];
-      for (let ind = 0; ind < rowsAux.length; ind++) {
-        auxW.push(rowsAux[ind][index]);
+  public grade(grade: number): any {
+    let response: { [k: number]: string[] } = {};
+
+    for (let i = 0; i < this.list.length; i++) {
+      const element = this.list[i];
+      if (!response[element[1]]) {
+        response[element[1]] = [element[0]];
+      } else {
+        response[element[1]].push(element[0]);
+        response[element[1]].sort();
       }
-      columnsAux.push(auxW);
-      index++;
     }
-    this.columnsArray = columnsAux;
-  }
-
-  get rows(): number[] {
-    return this.rowsArray;
-  }
-
-  get columns(): number[] {
-    return this.columnsArray;
+    if (grade === 0) {
+      return response;
+    }
+    return response[grade];
   }
 }
-console.log(new Matrix("10 2\n3 4"));
+let school = new GradeSchool();
+school.add("Franklin", 5);
+school.add("Bradley", 5);
+school.add("Jeff", 2);
+
+let grade2 = school.grade(2);
+grade2.push("Oops.");
+console.log(grade2);
+console.log(school.grade(2));
