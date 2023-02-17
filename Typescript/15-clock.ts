@@ -1,8 +1,3 @@
-/*
-Implementar un reloj que maneje tiempos sin fechas. 
-Deberías poder sumar y restar minutos. 
-Dos relojes que representan la misma hora deben ser iguales entre sí.
- */
 export class Clock {
   private minuts: number = 0;
   private hours: number = 0;
@@ -51,9 +46,3 @@ export class Clock {
     return new Clock(hour, minute);
   }
 }
-
-let consult = new Clock(6, 60);
-console.log(consult);
-consult.plus(1);
-consult.minus(59);
-console.log(consult.toString());
