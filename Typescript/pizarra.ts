@@ -1,68 +1,121 @@
-/* 
-1 = wink
-10 = double blink
-100 = close your eyes
-1000 = jump
-10000 = Reverse the order of the operations in the secret handshake.
-
-Dado un número decimal, conviértalo en la secuencia apropiada de eventos para un apretón de manos secreto.
-He aquí un par de ejemplos:
-Dada la entrada 3, la función devolvería la matriz ["guiño", "doble parpadeo"] porque 3 es 11 en binario.
-Dada la entrada 19, la función devolvería la matriz ["doble parpadeo", "guiño"] porque 19 es 10011 en binario.
-    Observe que la suma de 16 (10000 en binario) ha provocado que la matriz se invierta.
- */
-export function commands(number: number): string[] {
-  let secuence: string[] = [];
-  let values: { [key: number]: string } = {
-    1: "wink",
-    2: "double blink",
-    3: "close your eyes",
-    4: "jump",
-  };
-  let stringNumber: string = searchBinary(number).split("").reverse().join("");
-  for (let i = 0; i < stringNumber.length; i++) {
-    const element = stringNumber[i];
-    console.log(element);
-    if (i <= 3) {
-      element === "1" ? secuence.push(values[i + 1]) : null;
-    }
-    if (i > 3) {
-      element === "1" ? secuence.reverse() : null;
-    }
+export class Node {
+  public info: any;
+  public next: Node | null;
+  public before: Node | null;
+  constructor(info: any) {
+    this.info = info;
+    this.next = null;
+    this.before = null;
   }
-  return secuence;
-}
-export function searchBinary(nbr: number): string {
-  let pot: number = 0;
-  let suma: number = 0;
-
-  for (let i = 0; suma <= nbr; i++) {
-    let base: number = 2 ** i;
-    suma += base;
-    pot = i;
-  }
-  if (nbr + 1 == 2 ** pot) pot--;
-  return getBinary(nbr, pot);
 }
 
-export function getBinary(nmb: number, poten: number): string {
-  let reductor: number = nmb;
-  let binary: string = "";
+export class LinkedList<TElement> {
+  private inicio: Node | null;
+  private fin: Node | null;
 
-  while (poten >= 0) {
-    let potenc: number = 2 ** poten;
-    if (potenc <= reductor) {
-      binary = binary.concat("1");
-      reductor %= potenc;
+  constructor() {
+    this.inicio = null;
+    this.fin = null;
+  }
+
+  private empty() {
+    return this.inicio == null && this.fin == null ? true : false;
+  }
+
+  public push(element: TElement) {
+    let node: Node = new Node(element);
+    if (this.empty()) {
+      this.inicio = node;
+      this.fin = node;
     } else {
-      binary = binary.concat("0");
+      this.fin!.next = node;
+      node.before = this.fin;
     }
-    poten--;
-    reductor %= potenc;
+    this.fin = node;
   }
-  return binary;
+
+  public pop(): TElement {
+    if (this.inicio == this.fin) {
+      let au = this.inicio;
+      this.inicio = this.fin = null;
+      return au.info!;
+    }
+    let aux: Node = this.fin!;
+    this.fin = this.fin!.before;
+    this.fin!.next = null;
+    aux.before = aux.next = null;
+    return aux.info;
+  }
+
+  public shift(): TElement {
+    let aux: Node = this.inicio!;
+    this.inicio = this.inicio!.next;
+    this.inicio!.before = null;
+    aux.before = aux.next = null;
+    return aux.info;
+  }
+
+  public unshift(element: TElement) {
+    let node: Node = new Node(element);
+    if (this.empty()) {
+      this.inicio = node;
+      this.fin = node;
+    } else {
+      node.next = this.inicio;
+      this.inicio!.before = node;
+    }
+    this.inicio = node;
+  }
+
+  public delete(element: TElement) {
+    if (this.inicio === this.fin) {
+      return this.inicio!.info;
+    }
+    let aux: Node = this.inicio!;
+    while (aux != null) {
+      if (aux.info == element) {
+        if (aux.next) {
+          aux.before!.next = aux.next!.before;
+        } else {
+          aux.before!.next = null;
+        }
+      }
+      aux = aux.next!;
+    }
+  }
+
+  public count(): number {
+    let i = this.inicio;
+    let long: number = 1;
+    while (i!.next) {
+      long++;
+      i = i?.next!;
+    }
+    return long;
+  }
 }
-console.log(commands(332), searchBinary(332));
-let obj: string = "asdsjsgasdl";
-console.log(obj.split("").reverse().join(""));
-console.log(searchBinary(207));
+/* ----------------- Pruebas ------------------- */
+const list = new LinkedList<number>();
+list.push(10);
+list.push(20);
+console.log(list.pop());
+list.pop(); /* (20) */
+list.push(30);
+list.shift(); /* (10) */
+list.unshift(40);
+list.push(50);
+list.shift(); /* 40) */
+list.pop(); /* 50) */
+list.shift(); /* 30) */
+
+/* [30,50] */
+
+/*
+ListaDoblementeEnlazada listita = new ListaDoblementeEnlazada();
+
+        push( insertar valor al dorso );
+pop( quitar valor al dorso );
+
+shift( quitar valor al frente ).
+unshift( insertar valor al frente );
+         */
