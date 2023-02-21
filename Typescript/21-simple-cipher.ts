@@ -46,10 +46,10 @@ console.log(leti.encode("iamapandabear"));
 console.log(leti.decode("qayaeaagaciai"));
 
 /* 
-(new SimpleCipher('abc').encode('i a m a p andabear')).toEqual('i b o a q cnecbfcr')
-    
-
-Dada la clave "aaaaaaaaaaaaaaaaaa", codificar la cadena "iamapandabear" devolvería el "iamapandabear" original.
-
-Dada la clave "dddddddddddddddddd", codificar nuestra cadena "iamapandabear" devolvería el oscurecido "ldpdsdqgdehdu"
-*/
+  (new SimpleCipher('abc').encode('i a m a p andabear')).toEqual('i b o a q cnecbfcr')
+      
+  
+  Dada la clave "aaaaaaaaaaaaaaaaaa", codificar la cadena "iamapandabear" devolvería el "iamapandabear" original.
+  
+  Dada la clave "dddddddddddddddddd", codificar nuestra cadena "iamapandabear" devolvería el oscurecido "ldpdsdqgdehdu"
+  */
