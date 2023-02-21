@@ -49,28 +49,8 @@ export class Rational {
     return this.reduce(new Rational(this.num ** exp, this.den ** exp));
   }
 
-  public expreal(numbr: number): number {
-    let ex: number = numbr;
-    for (let i = 1; i < this.num; i++) {
-      ex *= numbr;
-    }
-    let result: number = 1;
-    while (result < ex) {
-      let rad: number = result;
-      let radical: number = 1;
-      for (let ind = 1; ind <= this.den; ind++) {
-        radical *= rad;
-      }
-      if (radical === ex) {
-        break;
-      } else {
-        result++;
-      }
-    }
-    if (result === 15.999999999999998) {
-      return 16;
-    }
-    return result;
+  public expreal(n: number): number {
+    return Number(Math.pow(n, this.num / this.den).toPrecision(15));
   }
 
   private reduce(rational?: Rational | undefined): Rational {
