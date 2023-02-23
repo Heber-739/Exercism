@@ -7,6 +7,9 @@ let operations: { [key: string]: string } = {
 };
 
 export const answer = (input: string): number | never => {
+  if (input.includes("What is")) {
+    console.log(input.replace("What is", ""));
+  }
   let text: string[] = input.replace("?", "").split(" ");
   let op: boolean = false;
   console.log(text);
@@ -18,7 +21,9 @@ export const answer = (input: string): number | never => {
       try {
         ev = `(${eval(ev.concat("(", e, ")"))})`;
         op = false;
-      } catch (error) {}
+      } catch (error) {
+        throw new Error("Syntax error");
+      }
     }
 
     if (operations[e]) {
@@ -35,11 +40,14 @@ export const answer = (input: string): number | never => {
         break;
       }
     }
-    if (op && i + 1 == text.length) {
-      throw new Error("Unknown operation");
-    }
   }
-  return eval(ev) ? eval(ev) : new Error("Unknown operation");
+  if (op || !text[text.length - 1].match(/[\d]/)) {
+    throw new Error("Unknown operation");
+  }
+  if (ev === "") {
+    throw new Error("Unknown operation");
+  }
+  return eval(ev);
 };
 console.log(answer("What is -3 plus 7 multiplied by -2?"));
 
