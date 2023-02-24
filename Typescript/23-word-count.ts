@@ -33,19 +33,19 @@ console.table(
   )
 );
 /*
-Por ejemplo, para la frase 
-"That's the password: 'PASSWORD 123'!", cried the Special Agent.\nSo I fled.
-
-el conteo sería:
-that's: 1
-the: 2
-password: 2
-123: 1
-cried: 1
-special: 1
-agent: 1
-so: 1
-i: 1
-fled: 1
-
-*/
+  Por ejemplo, para la frase 
+  "That's the password: 'PASSWORD 123'!", cried the Special Agent.\nSo I fled.
+  
+  el conteo sería:
+  that's: 1
+  the: 2
+  password: 2
+  123: 1
+  cried: 1
+  special: 1
+  agent: 1
+  so: 1
+  i: 1
+  fled: 1
+  
+  */
