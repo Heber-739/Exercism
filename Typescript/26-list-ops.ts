@@ -76,7 +76,7 @@ export class List<T> {
 }
 
 /* const list1 = List.create(1, 2, 2, 3, 4, 5);
-list1.filter<number>((el) => el % 2 === 1); */
+  list1.filter<number>((el) => el % 2 === 1); */
 console.log(new List(1, 2, 3));
 const list1 = List.create(1, 2);
 const list2 = List.create(2, 3, 4, 5);

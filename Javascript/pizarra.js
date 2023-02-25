@@ -1,37 +1,39 @@
-const PREPARATION_MINUTES_PER_LAYER = 2;
-export const EXPECTED_MINUTES_IN_OVEN = 40;
+if (!Array.prototype.filter) {
+  Array.prototype.filter = function (func, thisArg) {
+    "use strict";
+    if (!((typeof func === "Function" || typeof func === "function") && this))
+      throw new TypeError();
 
-/**
- * Determines the number of minutes the lasagna still needs to remain in the
- * oven to be properly prepared.
- *
- * @param {number} actualMinutesInOven
- * @returns {number} the number of minutes remaining
- */
-export function remainingMinutesInOven(actualMinutesInOven) {
-  return EXPECTED_MINUTES_IN_OVEN - actualMinutesInOven;
-}
+    var len = this.length >>> 0,
+      res = new Array(len), // preallocate array
+      t = this,
+      c = 0,
+      i = -1;
 
-/**
- * Given a number of layers, determines the total preparation time.
- *
- * @param {number} numberOfLayers
- * @returns {number} the total preparation time
- */
-export function preparationTimeInMinutes(numberOfLayers) {
-  return numberOfLayers * PREPARATION_MINUTES_PER_LAYER;
-}
+    var kValue;
+    if (thisArg === undefined) {
+      while (++i !== len) {
+        // checks to see if the key was set
+        if (i in this) {
+          kValue = t[i]; // in case t is changed in callback
+          if (func(t[i], i, t)) {
+            res[c++] = kValue;
+          }
+        }
+      }
+    } else {
+      while (++i !== len) {
+        // checks to see if the key was set
+        if (i in this) {
+          kValue = t[i];
+          if (func.call(thisArg, t[i], i, t)) {
+            res[c++] = kValue;
+          }
+        }
+      }
+    }
 
-/**
- * Calculates the total working time. That is, the time to prepare all the layers
- * of lasagna, and the time already spent in the oven.
- *
- * @param {number} numberOfLayers
- * @param {number} actualMinutesInOven
- * @returns {number} the total working time
- */
-export function totalTimeInMinutes(numberOfLayers, actualMinutesInOven) {
-  let parcial = preparationTimeInMinutes(numberOfLayers);
-  let parcial2 = 40 - remainingMinutesInOven(actualMinutesInOven);
-  return parcial + parcial2;
+    res.length = c; // shrink down array to proper size
+    return res;
+  };
 }
