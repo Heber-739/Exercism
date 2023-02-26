@@ -55,9 +55,9 @@ export class ComplexNumber {
 }
 
 /* 
-El recíproco de un número complejo distinto de cero es 1 / (a + i * b) = a/(a^2 + b^2) - b/(a^2 + b^2) * i.
-Elevar e a un exponente complejo se puede expresar como
-e^(a + i * b) = e^a * e^(i * b), cuyo último término viene dado por la fórmula de Euler
-e^(i * b) = cos(b) + i * sin(b).
-
- */
+  El recíproco de un número complejo distinto de cero es 1 / (a + i * b) = a/(a^2 + b^2) - b/(a^2 + b^2) * i.
+  Elevar e a un exponente complejo se puede expresar como
+  e^(a + i * b) = e^a * e^(i * b), cuyo último término viene dado por la fórmula de Euler
+  e^(i * b) = cos(b) + i * sin(b).
+  
+   */
