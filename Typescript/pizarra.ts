@@ -1,46 +1,22 @@
-export class Allergies {
-  private values: { [key: number]: string } = {
-    1: "eggs",
-    2: "peanuts",
-    4: "shellfish",
-    8: "strawberries",
-    16: "tomatoes",
-    32: "chocolate",
-    64: "pollen",
-    128: "cats",
-  };
-  private all: string[] = [];
-  constructor(a: number) {
-    let keys: string[] = Object.keys(this.values).reverse();
-    let r: number = 10;
-    while (r > 7) {
-      a -= a > 2 ** r ? 2 ** r : 0;
-      r--;
-    }
-    keys.forEach((e) => {
-      if (a >= parseInt(e)) {
-        a -= parseInt(e);
-        this.all.unshift(this.values[+e]);
-      }
-    });
+export function classify(n: number): string {
+  if (n <= 0) {
+    throw new Error("Classification is only possible for natural numbers.");
   }
-
-  public list(): string[] {
-    return this.all;
+  let f: number = 0;
+  for (let i = 1; i < n; i++) {
+    f += n % i == 0 ? i : 0;
   }
-
-  public allergicTo(a: string): boolean {
-    return this.all.includes(a);
-  }
+  let res: string = n > f ? "deficient" : "abundant";
+  return n == f ? "perfect" : res;
 }
-const allergies = new Allergies(509);
-const expected = [
-  "eggs",
-  "shellfish",
-  "strawberries",
-  "tomatoes",
-  "chocolate",
-  "pollen",
-  "cats",
-];
-console.log(allergies.list());
+/* 
+Perfect: aliquot sum = number
+6 is a perfect number because (1 + 2 + 3) = 6
+28 is a perfect number because (1 + 2 + 4 + 7 + 14) = 28
+Abundant: aliquot sum > number
+12 is an abundant number because (1 + 2 + 3 + 4 + 6) = 16
+24 is an abundant number because (1 + 2 + 3 + 4 + 6 + 8 + 12) = 36
+Deficient: aliquot sum < number
+8 is a deficient number because (1 + 2 + 4) = 7
+Prime numbers are deficient
+ */
