@@ -1,34 +1,21 @@
-type Options = {
-  minFactor?: number;
-  maxFactor?: number;
-  sum: number;
-};
-
-export function triplets(op: Options): Triplet[] {
-  let min: number = op.minFactor ? op.minFactor : 0;
-  let max: number = op.maxFactor ? op.maxFactor : op.sum;
-  let arr: Triplet[] = [];
-  for (let i = min; i <= max - 2; i++) {
-    for (let j = i + 1; j < max - 1; j++) {
-      for (let k = j + 1; k < max; k++) {
-        if (i + j + k === op.sum) {
-          if (i ** 2 + j ** 2 == k ** 2) {
-            arr.push(new Triplet(i, j, k));
-          }
+export function parse(input: string): string {
+  let t: string[] = input.split(" ");
+  console.log(t);
+  let acr: string = "";
+  t.forEach((e) => {
+    acr += e[0];
+    if (/[a-z]/.test(e)) {
+      for (let i = 1; i < e.length; i++) {
+        if (/[A-Z]/.test(e[i])) {
+          acr += e[i];
+        }
+        if (/[-]/.test(e[i]) && e[1 + i]) {
+          acr += e[i + 1];
+          i++;
         }
       }
     }
-  }
-  return arr;
+  });
+  return acr.toLocaleUpperCase();
 }
-
-class Triplet {
-  private arr: [number, number, number];
-  constructor(a: number, b: number, c: number) {
-    this.arr = [a, b, c];
-  }
-
-  toArray(): [number, number, number] {
-    return this.arr;
-  }
-}
+console.log(parse("RubY- on Rails"));
