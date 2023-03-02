@@ -1,44 +1,80 @@
-export function clean(t: string): string {
-  if (/[a-zA-Z]/.test(t)) {
-    throw new Error("Letters not permitted");
-  }
-  if (/[@:!]/.test(t)) {
-    throw new Error("Punctuations not permitted");
-  }
-  let res: string = "";
-  for (let i = 0; i < t.length; i++) {
-    if (/[0-9]/.test(t[i])) {
-      res = res + t[i];
+export class TwoBucket {
+  private movs: number;
+  private goalBucke: string;
+  private otherBucke: number;
+
+  constructor(c1: number, c2: number, goal: number, start: string) {
+    /*        3           5             1                two*/
+    let mov: number = 1;
+    let st = start == "one" ? c1 : c2;
+    let aux1: number = start == "one" ? c1 : c2;
+    let aux2: number = start == "one" ? c2 : c1;
+    let ot: number = 0;
+    while (true) {
+      console.log(st, ot);
+      /*                   [5 0, 2 3, 2 0, 0 2, 5 2, 4 3, 4 0, 1 3]*/
+      if (st == goal) {
+        this.goalBucke = start == "one" ? "one" : "two";
+        this.otherBucke = ot;
+        break;
+      }
+      if (ot == goal) {
+        this.goalBucke = start == "two" ? "two" : "one";
+        this.otherBucke = st;
+        break;
+      }
+      if (st == aux1 && ot == 0) {
+        st = ot + aux1 > aux2 ? st - (aux2 - ot) : 0;
+        ot = ot + aux1 > aux2 ? aux2 : ot + aux1;
+      } else if (st == 0 && ot == aux2) {
+        st = aux1;
+      } else if (st == aux1 && ot < aux2 && ot > 0) {
+        st = ot + aux1 > aux2 ? st - (aux2 - ot) : 0;
+        ot = ot + aux1 > aux2 ? aux2 : ot + aux1;
+      } else if (st < aux1 && st > 0 && ot == aux2) {
+        ot = 0;
+      } else if (st < aux1 && st > 0 && ot == 0) {
+        ot = st;
+        st = 0;
+      } else if (st == 0 && ot < aux2) {
+        st = aux1;
+      } else if (st == aux1 && ot == aux2) {
+        throw new Error("e");
+      } else if (mov > 10) {
+        throw new Error("d");
+      }
+      /*[5 0, 2 3, 2 0, 0 2, 5 2, 4 3, 4 0, 1 3]*/
+      mov++;
     }
-  }
-  let plus: number = res[0] == "1" && res.length == 11 ? 1 : 0;
-
-  if (res.length == 11 && res[0] != "1") {
-    throw new Error("11 digits must start with 1");
+    this.movs = mov;
   }
 
-  if (res.length > 11) {
-    throw new Error("More than 11 digits");
+  moves() {
+    return this.movs;
   }
 
-  if (res[0 + plus] == "0") {
-    throw new Error("Area code cannot start with zero");
+  get goalBucket() {
+    return this.goalBucke;
   }
 
-  if (parseInt(res[0 + plus]) < 2 && res.length == 10 + plus) {
-    throw new Error(
-      `Area code cannot start with ${res[0 + plus] == "1" ? "one" : "zero"}`
-    );
+  get otherBucket() {
+    return this.otherBucke;
   }
-  if (parseInt(res[3 + plus]) < 2 && res.length == 10 + plus) {
-    throw new Error(
-      `Exchange code cannot start with ${res[3 + plus] == "1" ? "one" : "zero"}`
-    );
-  }
-
-  if (res.length < 10) {
-    throw new Error("Incorrect number of digits");
-  }
-  return res.slice(plus);
 }
-console.log(clean("(123) 256-7890"));
+const tb = new TwoBucket(3, 5, 1, "two"); // 8
+console.log(tb.moves(), tb.goalBucket, tb.otherBucket);
+
+/* 6 15,
+           [5 0, 2 3, 2 0, 0 2, 5 2, 4 3, 4 0, 1 3]
+*/
+
+/* 
+      expect(twoBucket.moves()).toEqual(14)
+      expect(twoBucket.goalBucket).toEqual('one')
+      expect(twoBucket.otherBucket).toEqual(11)
+
+      const starterBuck = 'two'
+      expect(twoBucket.moves()).toEqual(18)
+      expect(twoBucket.goalBucket).toEqual('two')
+      expect(twoBucket.otherBucket).toEqual(7)
+       */
