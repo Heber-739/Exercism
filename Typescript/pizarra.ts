@@ -4,7 +4,7 @@ export class TwoBucket {
   private otherBucke: number;
 
   constructor(c1: number, c2: number, goal: number, start: string) {
-    /*        3           5             1                two*/
+    /*        6           15             9                one*/
     let mov: number = 1;
     let st = start == "one" ? c1 : c2;
     let aux1: number = start == "one" ? c1 : c2;
@@ -19,7 +19,7 @@ export class TwoBucket {
         break;
       }
       if (ot == goal) {
-        this.goalBucke = start == "two" ? "two" : "one";
+        this.goalBucke = start == "one" ? "two" : "one";
         this.otherBucke = st;
         break;
       }
@@ -34,8 +34,9 @@ export class TwoBucket {
       } else if (st < aux1 && st > 0 && ot == aux2) {
         ot = 0;
       } else if (st < aux1 && st > 0 && ot == 0) {
-        ot = st;
-        st = 0;
+        let ap: number = st;
+        st = ot + st > aux2 ? st - (aux2 - ot) : 0;
+        ot = ot + ap > aux2 ? aux2 : ot + ap;
       } else if (st == 0 && ot < aux2) {
         st = aux1;
       } else if (st == aux1 && ot == aux2) {
@@ -61,7 +62,7 @@ export class TwoBucket {
     return this.otherBucke;
   }
 }
-const tb = new TwoBucket(3, 5, 1, "two"); // 8
+const tb = new TwoBucket(6, 15, 9, "two"); // 8
 console.log(tb.moves(), tb.goalBucket, tb.otherBucket);
 
 /* 6 15,
