@@ -15,6 +15,6 @@ export function priceWithMonthlyDiscount(ratePerHour, numDays, discount) {
 }
 console.log(priceWithMonthlyDiscount(89, 230, 0.42));
 /* 
-priceWithMonthlyDiscount(89, 230, 0.42);
-// => 97972
- */
+  priceWithMonthlyDiscount(89, 230, 0.42);
+  // => 97972
+   */
