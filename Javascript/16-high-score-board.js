@@ -42,14 +42,14 @@ const params = {
 };
 console.log(normalizeScore(params));
 /* 
-.toEqual(1150);
- */
+  .toEqual(1150);
+   */
 
 /* 
-function normalize(score) {
-  return 2 * score + 10;
-}
-
-
-// => 810
- */
+  function normalize(score) {
+    return 2 * score + 10;
+  }
+  
+  
+  // => 810
+   */
