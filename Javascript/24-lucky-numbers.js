@@ -25,22 +25,22 @@ console.log(errorMessage("4 2"));
 console.log(errorMessage(""));
 
 /* 
-errorMessage('123');
-// => ''
-
-errorMessage('');
-// => 'Required field'
-
-errorMessage('abc');
-// => 'Must be a number besides 0'
- */
+  errorMessage('123');
+  // => ''
+  
+  errorMessage('');
+  // => 'Required field'
+  
+  errorMessage('abc');
+  // => 'Must be a number besides 0'
+   */
 
 /* 
-
-Conversión a un booleano (valores de Verdad/Falso)
-Con Boolean(value)usted puede convertir cualquier valor a un valor booleano. Hay un conjunto fijo de valores,
-llamados valores falsos , que se convierten en false. Lo más importante, false, 0, cadena vacía,
-null y undefinedson NaNfalsas.
-
-Para todos los demás valores, Booleandevuelve true. Estos valores se denominan veraces .
-*/
+  
+  Conversión a un booleano (valores de Verdad/Falso)
+  Con Boolean(value)usted puede convertir cualquier valor a un valor booleano. Hay un conjunto fijo de valores,
+  llamados valores falsos , que se convierten en false. Lo más importante, false, 0, cadena vacía,
+  null y undefinedson NaNfalsas.
+  
+  Para todos los demás valores, Booleandevuelve true. Estos valores se denominan veraces .
+  */
