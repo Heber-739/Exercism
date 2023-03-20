@@ -1,4 +1,4 @@
-export function twoSum(array1, array2) {
+﻿export function twoSum(array1, array2) {
   return parseInt(String(array1.join(""))) + parseInt(String(array2.join("")));
 }
 
@@ -37,10 +37,4 @@ errorMessage('abc');
 
 /* 
 
-Conversión a un booleano (valores de Verdad/Falso)
-Con Boolean(value)usted puede convertir cualquier valor a un valor booleano. Hay un conjunto fijo de valores,
-llamados valores falsos , que se convierten en false. Lo más importante, false, 0, cadena vacía,
-null y undefinedson NaNfalsas.
-
-Para todos los demás valores, Booleandevuelve true. Estos valores se denominan veraces .
 */
