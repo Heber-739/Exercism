@@ -18,7 +18,6 @@ export function errorMessage(input = null) {
   }
   return "";
 }
-console.log(errorMessage(""));
 console.log(errorMessage("some text"));
 console.log(errorMessage("86f1"));
 console.log(errorMessage("4 2"));
